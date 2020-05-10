@@ -9,7 +9,6 @@ let pose;
 let skeleton;
 let imgBackground;
 let pg;
-// const mole = [];
 
 let cameraCanvas = function (sketch) {
     sketch.setup = function () {
@@ -67,8 +66,7 @@ let cameraCanvas = function (sketch) {
 var moleCanvas = function (sketch) {
     let spritesheet;
     let spritedata;
-    let animation = [];
-    let a = {};
+    let animation = {};
     const canvasWidth = 400;
     const canvasHeight = 600;
     // const moleWidth = 190 * 0.666;
@@ -97,36 +95,37 @@ var moleCanvas = function (sketch) {
         };
 
         let frames = spritedata.frames;
-        for (let i = 0; i < frames.length; i++) {
-            let pos = frames[i].position;
-            let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
-            animation.push(img);
-        }
 
         // load sprite by animation
         Object.entries(moleSprite).map((key) => {
-            console.log(key);
             let moleAction = [];
             key[1].map((sprite) => {
                 let pos = frames[sprite].position;
                 let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
                 moleAction.push(img);
             });
-            a[key[0]] = moleAction;
+            animation[key[0]] = moleAction;
         });
-        console.log(a);
+        console.log(animation);
     };
 
-    // test mole
-    const moles = new Mole(sketch, animation, a, [2, 2]);
-    moles.moleController();
+    // Initiallize moles
+    const moles = [];
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            const mole = new Mole(sketch, animation, [i, j]);
+            mole.moleController();
+            moles.push(mole);
+        }
+    }
 
     sketch.draw = function () {
         //for canvas 2
         sketch.image(imgBackground, 0, 0, canvasWidth, canvasHeight);
-        moles.draw();
+        // moles.draw();
+        moles.map((mole) => mole.draw());
 
-        sketch.frameRate(5);
+        sketch.frameRate(4);
     };
 };
 

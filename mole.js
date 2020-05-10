@@ -1,15 +1,14 @@
 class Mole {
-    constructor(sketch, animation, a, molePosition) {
+    constructor(sketch, animation, molePosition) {
         this.sketch = sketch;
         this.animation = animation;
-        this.a = a;
         this.molePosition = molePosition;
         this.canvasWidth = 400;
         this.canvasHeight = 600;
         this.moleWidth = 190 * 0.666;
         this.moleHeight = 144 * 0.666;
         this.moleState = 0;
-        this.state = 0;
+        this.moleFrame = 0;
     }
 
     /**
@@ -24,12 +23,11 @@ class Mole {
     moleController = () => {
         const randomNum = (num) => Math.floor(Math.random() * num);
 
-        if (this.moleState === 0) {
-            if (randomNum(2)) {
-                this.moleState = 1;
-            }
-        } else if (this.moleState === 2) {
-            this.moleState = 2;
+        if (this.moleState === 0 && randomNum(10) > 7) {
+            this.moleState = 1;
+        } else if (this.moleState === 2 && randomNum(10) > 6) {
+            this.moleState = 3;
+            this.moleFrame = 0;
         }
 
         console.log(this.moleState);
@@ -54,28 +52,51 @@ class Mole {
         ((this.canvasHeight - this.canvasHeight / 3) / 3) * mole[0];
 
     draw() {
-        if (this.moleState === 1) {
-            this.sketch.image(
-                this.a.comeOut[this.state],
-                this.molePositionX(this.molePosition),
-                this.molePositionY(this.molePosition),
-                this.moleWidth,
-                this.moleHeight
-            );
-            this.state++;
-            if (this.state >= this.a.comeOut.length) {
-                this.state = 0;
-                this.moleState = 2;
-            }
-        } else if (this.moleState === 2) {
-            this.sketch.image(
-                this.a.out[this.state % this.a.out.length],
-                this.molePositionX(this.molePosition),
-                this.molePositionY(this.molePosition),
-                this.moleWidth,
-                this.moleHeight
-            );
-            this.state++;
+        switch (this.moleState) {
+            case 0:
+                break;
+            case 1:
+                this.sketch.image(
+                    this.animation.comeOut[this.moleFrame],
+                    this.molePositionX(this.molePosition),
+                    this.molePositionY(this.molePosition),
+                    this.moleWidth,
+                    this.moleHeight
+                );
+
+                this.moleFrame++;
+                if (this.moleFrame >= this.animation.comeOut.length) {
+                    this.moleFrame = 0;
+                    this.moleState = 2;
+                }
+                break;
+            case 2:
+                this.sketch.image(
+                    this.animation.out[this.moleFrame % this.animation.out.length],
+                    this.molePositionX(this.molePosition),
+                    this.molePositionY(this.molePosition),
+                    this.moleWidth,
+                    this.moleHeight
+                );
+                this.moleFrame++;
+                break;
+            case 3:
+                this.sketch.image(
+                    this.animation.backIn[this.moleFrame],
+                    this.molePositionX(this.molePosition),
+                    this.molePositionY(this.molePosition),
+                    this.moleWidth,
+                    this.moleHeight
+                );
+                this.moleFrame++;
+                if (this.moleFrame >= this.animation.backIn.length) {
+                    this.moleFrame = 0;
+                    this.moleState = 0;
+                }
+                break;
+            case 4:
+                break;
+            default:
         }
     }
 }
