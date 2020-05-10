@@ -68,6 +68,7 @@ var moleCanvas = function (sketch) {
     let spritesheet;
     let spritedata;
     let animation = [];
+    let a = {};
     const canvasWidth = 400;
     const canvasHeight = 600;
     // const moleWidth = 190 * 0.666;
@@ -88,17 +89,36 @@ var moleCanvas = function (sketch) {
          * 4-16: out
          * 36-38, 42-44: kicked
          */
+        const moleSprite = {
+            comeOut: [0, 1, 2, 3],
+            out: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+            backIn: [5, 4, 3, 2, 1, 0],
+            kicked: [36, 37, 38, 42, 43, 44],
+        };
+
         let frames = spritedata.frames;
         for (let i = 0; i < frames.length; i++) {
             let pos = frames[i].position;
             let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
             animation.push(img);
         }
-        console.log(animation);
+
+        // load sprite by animation
+        Object.entries(moleSprite).map((key) => {
+            console.log(key);
+            let moleAction = [];
+            key[1].map((sprite) => {
+                let pos = frames[sprite].position;
+                let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+                moleAction.push(img);
+            });
+            a[key[0]] = moleAction;
+        });
+        console.log(a);
     };
 
     // test mole
-    const moles = new Mole(sketch, animation, [2, 2]);
+    const moles = new Mole(sketch, animation, a, [2, 2]);
     moles.moleController();
 
     sketch.draw = function () {
