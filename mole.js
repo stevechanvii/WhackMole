@@ -7,26 +7,26 @@ class Mole {
         this.canvasHeight = 600;
         this.moleWidth = 190 * 0.666;
         this.moleHeight = 144 * 0.666;
-        this.moleState = 0;
+        this.moleState = 'underground';
         this.moleFrame = 0;
     }
 
     /**
      * moleState
      *
-     * 0 = none
-     * 1 = comimg out
-     * 2 = already come out
-     * 3 = back to hole
-     * 4 = been clicked
+     * underground
+     * appearing
+     * appeared
+     * disappearing
+     * clicked
      */
     moleController = () => {
         const randomNum = (num) => Math.floor(Math.random() * num);
 
-        if (this.moleState === 0 && randomNum(10) > 7) {
-            this.moleState = 1;
-        } else if (this.moleState === 2 && randomNum(10) > 6) {
-            this.moleState = 3;
+        if (this.moleState === 'underground' && randomNum(10) > 7) {
+            this.moleState = 'appearing';
+        } else if (this.moleState === 'appeared' && randomNum(10) > 6) {
+            this.moleState = 'disappearing';
             this.moleFrame = 0;
         }
 
@@ -53,9 +53,9 @@ class Mole {
 
     draw() {
         switch (this.moleState) {
-            case 0:
+            case 'underground':
                 break;
-            case 1:
+            case 'appearing':
                 this.sketch.image(
                     this.animation.comeOut[this.moleFrame],
                     this.molePositionX(this.molePosition),
@@ -67,10 +67,10 @@ class Mole {
                 this.moleFrame++;
                 if (this.moleFrame >= this.animation.comeOut.length) {
                     this.moleFrame = 0;
-                    this.moleState = 2;
+                    this.moleState = 'appeared';
                 }
                 break;
-            case 2:
+            case 'appeared':
                 this.sketch.image(
                     this.animation.out[this.moleFrame % this.animation.out.length],
                     this.molePositionX(this.molePosition),
@@ -80,7 +80,7 @@ class Mole {
                 );
                 this.moleFrame++;
                 break;
-            case 3:
+            case 'disappearing':
                 this.sketch.image(
                     this.animation.backIn[this.moleFrame],
                     this.molePositionX(this.molePosition),
@@ -91,10 +91,10 @@ class Mole {
                 this.moleFrame++;
                 if (this.moleFrame >= this.animation.backIn.length) {
                     this.moleFrame = 0;
-                    this.moleState = 0;
+                    this.moleState = 'underground';
                 }
                 break;
-            case 4:
+            case 'clicked':
                 break;
             default:
         }
