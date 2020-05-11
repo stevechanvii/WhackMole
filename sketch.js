@@ -85,13 +85,13 @@ var moleCanvas = function (sketch) {
          * sprite info
          * 0-3: come out
          * 4-16: out
-         * 36-38, 42-44: kicked
+         * 36-38, 42-44: clicked
          */
         const moleSprite = {
             comeOut: [0, 1, 2, 3],
-            out: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+            out: [4, 5, 6, 7, 8, 9, 10, 11, 14, 16, 11, 6, 7, 6, 7, 6, 7],
             backIn: [5, 4, 3, 2, 1, 0],
-            kicked: [36, 37, 38, 42, 43, 44],
+            clicked: [36, 37, 38, 42, 43, 44],
         };
 
         let frames = spritedata.frames;
@@ -125,7 +125,41 @@ var moleCanvas = function (sketch) {
         // moles.draw();
         moles.map((mole) => mole.draw());
 
-        sketch.frameRate(4);
+        sketch.frameRate(8);
+    };
+
+    sketch.keyPressed = function () {
+        switch (sketch.key) {
+            case '1':
+                moles[6].clicked();
+                break;
+            case '2':
+                moles[7].clicked();
+                break;
+            case '3':
+                moles[8].clicked();
+                break;
+            case '4':
+                moles[3].clicked();
+                break;
+            case '5':
+                moles[4].clicked();
+                break;
+            case '6':
+                moles[5].clicked();
+                break;
+            case '7':
+                moles[0].clicked();
+                break;
+            case '8':
+                moles[1].clicked();
+                break;
+            case '9':
+                moles[2].clicked();
+                break;
+            default:
+                break;
+        }
     };
 };
 

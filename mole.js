@@ -35,6 +35,14 @@ class Mole {
         setTimeout(this.moleController, randomNum(5000));
     };
 
+    // Change the state when clicked
+    clicked = () => {
+        if (this.moleState === 'appeared') {
+            this.moleState = 'clicked';
+            this.moleFrame = 0;
+        }
+    };
+
     /**
      * @param {list} mole
      * Calculate the x position of mole
@@ -95,6 +103,18 @@ class Mole {
                 }
                 break;
             case 'clicked':
+                this.sketch.image(
+                    this.animation.clicked[this.moleFrame],
+                    this.molePositionX(this.molePosition),
+                    this.molePositionY(this.molePosition),
+                    this.moleWidth,
+                    this.moleHeight
+                );
+                this.moleFrame++;
+                if (this.moleFrame >= this.animation.clicked.length) {
+                    this.moleFrame = 0;
+                    this.moleState = 'underground';
+                }
                 break;
             default:
         }
