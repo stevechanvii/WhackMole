@@ -22,6 +22,7 @@ class Mole {
      */
     underground = () => {
         this.moleState = 'appearing';
+        this.moleFrame = 0;
     };
 
     appearing = () => {
@@ -46,10 +47,13 @@ class Mole {
         }
     };
 
+    /**
+     * Infinite loop in every 0 to 5 seconds, control the state of mole
+     */
     moleController = () => {
         const randomNum = (num) => Math.floor(Math.random() * num);
 
-        if (this.moleState === 'underground' && randomNum(10) > 7) {
+        if (this.moleState === 'underground' && randomNum(10) > 6) {
             this.underground();
         } else if (this.moleState === 'appeared' && randomNum(10) > 6) {
             this.appeared();
