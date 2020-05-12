@@ -164,6 +164,6 @@ var moleCanvas = function (sketch) {
 };
 
 // create a new instance of p5 and pass in the function for sketch 1
-let cameraWindow = new p5(cameraCanvas);
+// let cameraWindow = new p5(cameraCanvas);
 // create the second instance of p5 and pass in the function for sketch 2
 moleWindow = new p5(moleCanvas);

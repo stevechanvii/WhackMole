@@ -20,27 +20,44 @@ class Mole {
      * disappearing
      * clicked
      */
-    moleController = () => {
-        const randomNum = (num) => Math.floor(Math.random() * num);
-
-        if (this.moleState === 'underground' && randomNum(10) > 7) {
-            this.moleState = 'appearing';
-        } else if (this.moleState === 'appeared' && randomNum(10) > 6) {
-            this.moleState = 'disappearing';
-            this.moleFrame = 0;
-        }
-
-        console.log(this.moleState);
-
-        setTimeout(this.moleController, randomNum(5000));
+    underground = () => {
+        this.moleState = 'appearing';
     };
 
-    // Change the state when clicked
+    appearing = () => {
+        this.moleState = 'appeared';
+        this.moleFrame = 0;
+    };
+
+    appeared = () => {
+        this.moleState = 'disappearing';
+        this.moleFrame = 0;
+    };
+
+    disappearing = () => {
+        this.moleState = 'underground';
+        this.moleFrame = 0;
+    };
+
     clicked = () => {
         if (this.moleState === 'appeared') {
             this.moleState = 'clicked';
             this.moleFrame = 0;
         }
+    };
+
+    moleController = () => {
+        const randomNum = (num) => Math.floor(Math.random() * num);
+
+        if (this.moleState === 'underground' && randomNum(10) > 7) {
+            this.underground();
+        } else if (this.moleState === 'appeared' && randomNum(10) > 6) {
+            this.appeared();
+        }
+
+        console.log(this.moleState);
+
+        setTimeout(this.moleController, randomNum(5000));
     };
 
     /**
@@ -74,8 +91,7 @@ class Mole {
 
                 this.moleFrame++;
                 if (this.moleFrame >= this.animation.comeOut.length) {
-                    this.moleFrame = 0;
-                    this.moleState = 'appeared';
+                    this.appearing();
                 }
                 break;
             case 'appeared':
@@ -98,8 +114,7 @@ class Mole {
                 );
                 this.moleFrame++;
                 if (this.moleFrame >= this.animation.backIn.length) {
-                    this.moleFrame = 0;
-                    this.moleState = 'underground';
+                    this.disappearing();
                 }
                 break;
             case 'clicked':
@@ -112,8 +127,7 @@ class Mole {
                 );
                 this.moleFrame++;
                 if (this.moleFrame >= this.animation.clicked.length) {
-                    this.moleFrame = 0;
-                    this.moleState = 'underground';
+                    this.disappearing();
                 }
                 break;
             default:
