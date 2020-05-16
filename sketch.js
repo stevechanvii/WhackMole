@@ -67,6 +67,7 @@ var moleCanvas = function (sketch) {
     let spritesheet;
     let spritedata;
     let animation = {};
+    let score = 0;
     const canvasWidth = 400;
     const canvasHeight = 600;
     // const moleWidth = 190 * 0.666;
