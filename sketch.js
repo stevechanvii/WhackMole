@@ -130,6 +130,7 @@ var moleCanvas = function (sketch) {
     };
 
     sketch.keyPressed = function () {
+        score++;
         switch (sketch.key) {
             case '1':
                 moles[6].clicked();
