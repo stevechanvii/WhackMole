@@ -1,3 +1,3 @@
 # WhackMole
 
-Developed by P5.js and Tensorflow PoseNet
+A whack a mole game developed by P5.js and Tensorflow PoseNet
