@@ -10,6 +10,9 @@ let skeleton;
 let imgBackground;
 let pg;
 
+let score = 0;
+
+// Video canvas
 let cameraCanvas = function (sketch) {
     sketch.setup = function () {
         sketch.createCanvas(640, 480);
@@ -63,15 +66,13 @@ let cameraCanvas = function (sketch) {
     };
 };
 
+// Mole canvas
 var moleCanvas = function (sketch) {
     let spritesheet;
     let spritedata;
     let animation = {};
-    let score = 0;
     const canvasWidth = 400;
     const canvasHeight = 600;
-    // const moleWidth = 190 * 0.666;
-    // const moleHeight = 144 * 0.666;
 
     sketch.preload = function () {
         imgBackground = sketch.loadImage('assets/background.png');
@@ -125,6 +126,13 @@ var moleCanvas = function (sketch) {
         sketch.image(imgBackground, 0, 0, canvasWidth, canvasHeight);
         // moles.draw();
         moles.map((mole) => mole.draw());
+
+        // Score
+        sketch.textSize(30);
+        sketch.strokeWeight(2);
+        sketch.textAlign(sketch.CENTER, sketch.TOP);
+        sketch.textFont('Shadows Into Light');
+        sketch.text('Score: ' + score, canvasWidth / 2, 10);
 
         sketch.frameRate(8);
     };

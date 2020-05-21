@@ -44,6 +44,7 @@ class Mole {
         if (this.moleState === 'appeared') {
             this.moleState = 'clicked';
             this.moleFrame = 0;
+            score++;
         }
     };
 
