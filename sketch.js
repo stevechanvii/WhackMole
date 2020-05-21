@@ -131,42 +131,7 @@ var moleCanvas = function (sketch) {
 
     sketch.mouseClicked = function () {
         // console.log(sketch.mouseX);
-        moles.map((mole) => mole.clicked(sketch.mouseX, sketch.mouseY));
-    };
-
-    sketch.keyPressed = function () {
-        score++;
-        switch (sketch.key) {
-            case '1':
-                moles[6].clicked();
-                break;
-            case '2':
-                moles[7].clicked();
-                break;
-            case '3':
-                moles[8].clicked();
-                break;
-            case '4':
-                moles[3].clicked();
-                break;
-            case '5':
-                moles[4].clicked();
-                break;
-            case '6':
-                moles[5].clicked();
-                break;
-            case '7':
-                moles[0].clicked();
-                break;
-            case '8':
-                moles[1].clicked();
-                break;
-            case '9':
-                moles[2].clicked();
-                break;
-            default:
-                break;
-        }
+        moles.map((mole) => mole.mouseClick(sketch.mouseX, sketch.mouseY));
     };
 };
 

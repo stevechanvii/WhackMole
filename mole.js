@@ -82,16 +82,18 @@ class Mole {
 
     /**
      * Determin the distance between the mouseClicked event and the center of mole,
-     * if distance is smaller than 100px, then clicked.
+     * if distance is smaller than 50px, then clicked.
      */
-    clicked = (mouseX, mouseY) => {
+    mouseClick = (mouseX, mouseY) => {
         const d = this.sketch.dist(
             mouseX,
             mouseY,
             this.molePositionX(this.molePosition) + this.moleWidth / 2,
             this.molePositionY(this.molePosition) + this.moleHeight / 2
         );
-        console.log(this.molePosition, d);
+        if (d < 50) {
+            this.clicked();
+        }
     };
 
     draw() {
