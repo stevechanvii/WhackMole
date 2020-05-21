@@ -129,6 +129,11 @@ var moleCanvas = function (sketch) {
         sketch.frameRate(8);
     };
 
+    sketch.mouseClicked = function () {
+        // console.log(sketch.mouseX);
+        moles.map((mole) => mole.clicked(sketch.mouseX, sketch.mouseY));
+    };
+
     sketch.keyPressed = function () {
         score++;
         switch (sketch.key) {

@@ -80,6 +80,20 @@ class Mole {
         ((this.canvasHeight - this.canvasHeight / 3) / 3 - this.moleHeight) / 2 +
         ((this.canvasHeight - this.canvasHeight / 3) / 3) * mole[0];
 
+    /**
+     * Determin the distance between the mouseClicked event and the center of mole,
+     * if distance is smaller than 100px, then clicked.
+     */
+    clicked = (mouseX, mouseY) => {
+        const d = this.sketch.dist(
+            mouseX,
+            mouseY,
+            this.molePositionX(this.molePosition) + this.moleWidth / 2,
+            this.molePositionY(this.molePosition) + this.moleHeight / 2
+        );
+        console.log(this.molePosition, d);
+    };
+
     draw() {
         switch (this.moleState) {
             case 'underground':
