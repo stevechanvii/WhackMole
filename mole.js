@@ -51,6 +51,7 @@ class Mole {
     /**
      * Infinite loop in every 0 to 5 seconds, control the state of mole
      */
+    timeController;
     moleController = () => {
         const randomNum = (num) => Math.floor(Math.random() * num);
 
@@ -62,7 +63,12 @@ class Mole {
 
         console.log(this.moleState);
 
-        setTimeout(this.moleController, randomNum(5000));
+        this.timeController = setTimeout(this.moleController, randomNum(5000));
+    };
+
+    timeoutController = () => {
+        clearTimeout(this.timeController);
+        this.moleState = 'underground';
     };
 
     /**

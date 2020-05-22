@@ -152,6 +152,8 @@ var moleCanvas = function (sketch) {
             // ding.play();
             clearInterval(interval);
             //counter = 0;
+            // Set timeout to moles
+            moles.map((mole) => mole.timeoutController());
         }
     }
 
