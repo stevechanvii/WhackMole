@@ -73,12 +73,22 @@ var moleCanvas = function (sketch) {
     let animation = {};
     const canvasWidth = 400;
     const canvasHeight = 600;
+    // Timer variables
+    let timeleft = 30;
+    let startTime = 0;
+    let currentTime = 0;
 
     sketch.preload = function () {
         imgBackground = sketch.loadImage('assets/background.png');
         spritesheet = sketch.loadImage('assets/sprites.png');
         spritedata = sketch.loadJSON('assets/mole.json');
     };
+
+    function convertSeconds(s) {
+        var min = sketch.floor(s / 60);
+        var sec = s % 60;
+        return sketch.nf(sec, 2);
+    }
 
     sketch.setup = function () {
         sketch.createCanvas(canvasWidth, canvasHeight);
@@ -121,6 +131,32 @@ var moleCanvas = function (sketch) {
         }
     }
 
+    // Timer
+    startTime = sketch.millis();
+
+    const params = sketch.getURLParams();
+    console.log(params);
+    if (params.minute) {
+        var min = params.minute;
+        timeleft = min * 60;
+    }
+
+    var timer = convertSeconds(timeleft - currentTime);
+
+    var interval = setInterval(timeIt, 1000);
+
+    function timeIt() {
+        currentTime = sketch.floor((sketch.millis() - startTime) / 1000);
+        timer = convertSeconds(timeleft - currentTime);
+        if (currentTime == timeleft) {
+            // ding.play();
+            clearInterval(interval);
+            //counter = 0;
+        }
+    }
+
+    // Start Game
+
     sketch.draw = function () {
         //for canvas 2
         sketch.image(imgBackground, 0, 0, canvasWidth, canvasHeight);
@@ -130,9 +166,13 @@ var moleCanvas = function (sketch) {
         // Score
         sketch.textSize(30);
         sketch.strokeWeight(2);
-        sketch.textAlign(sketch.CENTER, sketch.TOP);
+        // sketch.textAlign(sketch.CENTER, sketch.LIFT);
         sketch.textFont('Shadows Into Light');
-        sketch.text('Score: ' + score, canvasWidth / 2, 10);
+        sketch.text('Score: ' + score, 20, 32);
+
+        // Timer
+        // sketch.textAlign(sketch.RIGHT);
+        sketch.text('Time: ' + timer, canvasWidth - 115, 32);
 
         sketch.frameRate(8);
     };
