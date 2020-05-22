@@ -72,7 +72,7 @@ var moleCanvas = function (sketch) {
     let spritesheet;
     let spritedata;
     let iconPlay;
-    let iconRestart;
+    let iconPlayHover;
     const animation = {};
     const canvasWidth = 400;
     const canvasHeight = 600;
@@ -164,9 +164,7 @@ var moleCanvas = function (sketch) {
             currentTime = sketch.floor((sketch.millis() - startTime) / 1000);
             timer = convertSeconds(timeleft - currentTime);
             if (currentTime == timeleft) {
-                // ding.play();
                 clearInterval(interval);
-                //counter = 0;
                 // Set timeout to moles
                 moles.map((mole) => mole.timeoutController());
                 isPlaying = false;
@@ -195,7 +193,18 @@ var moleCanvas = function (sketch) {
         } else {
             // Play game icon
             sketch.imageMode(sketch.CENTER);
-            sketch.image(iconPlay, canvasWidth / 2, canvasHeight / 2 + 20, 80, 80);
+            if (
+                sketch.dist(sketch.mouseX, sketch.mouseY, canvasWidth / 2, canvasHeight / 2 + 20) <
+                30
+            ) {
+                sketch.image(iconPlay, canvasWidth / 2, canvasHeight / 2 + 20, 80, 80);
+                sketch.textSize(25);
+                sketch.textAlign(sketch.CENTER);
+                sketch.text('Press to Start!', canvasWidth / 2, canvasHeight / 2 + 85);
+            } else {
+                sketch.image(iconPlay, canvasWidth / 2, canvasHeight / 2 + 20, 70, 70);
+            }
+
             if (score > 0) {
                 sketch.textAlign(sketch.CENTER);
                 sketch.textSize(35);
@@ -219,7 +228,7 @@ var moleCanvas = function (sketch) {
                 canvasWidth / 2,
                 canvasHeight / 2 + 20
             );
-            if (d < 50) {
+            if (d < 40) {
                 isPlaying = true;
                 timeCounter();
                 initMoles();
