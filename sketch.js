@@ -178,10 +178,9 @@ var moleCanvas = function (sketch) {
         sketch.image(imgBackground, 0, 0, canvasWidth, canvasHeight);
 
         // Score
-        sketch.textSize(30);
-        sketch.strokeWeight(2);
+        sketch.textSize(25);
         // sketch.textAlign(sketch.CENTER, sketch.LIFT);
-        sketch.textFont('Shadows Into Light');
+        sketch.textFont('Chelsea Market');
         sketch.text('Score: ' + score, 20, 32);
 
         // Timer
@@ -193,21 +192,23 @@ var moleCanvas = function (sketch) {
         } else {
             // Play game icon
             sketch.imageMode(sketch.CENTER);
+            sketch.textAlign(sketch.CENTER);
             if (
                 sketch.dist(sketch.mouseX, sketch.mouseY, canvasWidth / 2, canvasHeight / 2 + 20) <
                 30
             ) {
                 sketch.image(iconPlay, canvasWidth / 2, canvasHeight / 2 + 20, 80, 80);
                 sketch.textSize(25);
-                sketch.textAlign(sketch.CENTER);
                 sketch.text('Press to Start!', canvasWidth / 2, canvasHeight / 2 + 85);
             } else {
                 sketch.image(iconPlay, canvasWidth / 2, canvasHeight / 2 + 20, 70, 70);
+                sketch.textSize(20);
+                sketch.text('Press to Start!', canvasWidth / 2, canvasHeight / 2 + 85);
             }
 
             if (score > 0) {
                 sketch.textAlign(sketch.CENTER);
-                sketch.textSize(35);
+                sketch.textSize(25);
                 sketch.text('Congratulations!', canvasWidth / 2, canvasHeight / 2 - 100);
                 sketch.text(`You Got ${score} Points!`, canvasWidth / 2, canvasHeight / 2 - 50);
             }
