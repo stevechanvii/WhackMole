@@ -7,7 +7,6 @@ let video;
 let poseNet;
 let pose;
 let skeleton;
-let imgBackground;
 let pg;
 
 let score = 0;
@@ -68,20 +67,29 @@ let cameraCanvas = function (sketch) {
 
 // Mole canvas
 var moleCanvas = function (sketch) {
+    // Set Image and sprite
+    let imgBackground;
     let spritesheet;
     let spritedata;
-    let animation = {};
+    let iconPlay;
+    let iconRestart;
+    const animation = {};
     const canvasWidth = 400;
     const canvasHeight = 600;
+
     // Timer variables
-    let timeleft = 30;
-    let startTime = 0;
-    let currentTime = 0;
+    let timer = 30;
+
+    // Game state
+    let isStart = false;
+    let isPlaying = false;
 
     sketch.preload = function () {
         imgBackground = sketch.loadImage('assets/background.png');
         spritesheet = sketch.loadImage('assets/sprites.png');
         spritedata = sketch.loadJSON('assets/mole.json');
+        iconPlay = sketch.loadImage('assets/icon_play.png');
+        iconRestart = sketch.loadImage('assets/icon_restart.png');
     };
 
     function convertSeconds(s) {
@@ -123,47 +131,53 @@ var moleCanvas = function (sketch) {
 
     // Initiallize moles
     const moles = [];
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-            const mole = new Mole(sketch, animation, [i, j]);
-            mole.moleController();
-            moles.push(mole);
+    const initMoles = () => {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                const mole = new Mole(sketch, animation, [i, j]);
+                mole.moleController();
+                moles.push(mole);
+            }
         }
-    }
+    };
 
     // Timer
-    startTime = sketch.millis();
+    const timeCounter = () => {
+        let timeleft = 30;
+        let startTime = 0;
+        let currentTime = 0;
 
-    const params = sketch.getURLParams();
-    console.log(params);
-    if (params.minute) {
-        var min = params.minute;
-        timeleft = min * 60;
-    }
+        startTime = sketch.millis();
 
-    var timer = convertSeconds(timeleft - currentTime);
-
-    var interval = setInterval(timeIt, 1000);
-
-    function timeIt() {
-        currentTime = sketch.floor((sketch.millis() - startTime) / 1000);
-        timer = convertSeconds(timeleft - currentTime);
-        if (currentTime == timeleft) {
-            // ding.play();
-            clearInterval(interval);
-            //counter = 0;
-            // Set timeout to moles
-            moles.map((mole) => mole.timeoutController());
+        const params = sketch.getURLParams();
+        console.log(params);
+        if (params.minute) {
+            const min = params.minute;
+            timeleft = min * 60;
         }
-    }
+
+        timer = convertSeconds(timeleft - currentTime);
+
+        const interval = setInterval(timeIt, 1000);
+
+        function timeIt() {
+            currentTime = sketch.floor((sketch.millis() - startTime) / 1000);
+            timer = convertSeconds(timeleft - currentTime);
+            if (currentTime == timeleft) {
+                // ding.play();
+                clearInterval(interval);
+                //counter = 0;
+                // Set timeout to moles
+                moles.map((mole) => mole.timeoutController());
+                isPlaying = false;
+            }
+        }
+    };
 
     // Start Game
-
     sketch.draw = function () {
         //for canvas 2
         sketch.image(imgBackground, 0, 0, canvasWidth, canvasHeight);
-        // moles.draw();
-        moles.map((mole) => mole.draw());
 
         // Score
         sketch.textSize(30);
@@ -176,12 +190,42 @@ var moleCanvas = function (sketch) {
         // sketch.textAlign(sketch.RIGHT);
         sketch.text('Time: ' + timer, canvasWidth - 115, 32);
 
+        if (isPlaying) {
+            moles.map((mole) => mole.draw());
+        } else {
+            // Play game icon
+            sketch.imageMode(sketch.CENTER);
+            sketch.image(iconPlay, canvasWidth / 2, canvasHeight / 2 + 20, 80, 80);
+            if (score > 0) {
+                sketch.textAlign(sketch.CENTER);
+                sketch.textSize(35);
+                sketch.text('Congratulations!', canvasWidth / 2, canvasHeight / 2 - 100);
+                sketch.text(`You Got ${score} Points!`, canvasWidth / 2, canvasHeight / 2 - 50);
+            }
+        }
+
         sketch.frameRate(8);
     };
 
     sketch.mouseClicked = function () {
-        // console.log(sketch.mouseX);
-        moles.map((mole) => mole.mouseClick(sketch.mouseX, sketch.mouseY));
+        console.log(sketch.mouseX);
+
+        if (isPlaying) {
+            moles.map((mole) => mole.mouseClick(sketch.mouseX, sketch.mouseY));
+        } else {
+            const d = sketch.dist(
+                sketch.mouseX,
+                sketch.mouseY,
+                canvasWidth / 2,
+                canvasHeight / 2 + 20
+            );
+            if (d < 50) {
+                isPlaying = true;
+                timeCounter();
+                initMoles();
+                score = 0;
+            }
+        }
     };
 };
 
