@@ -61,7 +61,7 @@ class Mole {
             this.appeared();
         }
 
-        console.log(this.moleState);
+        console.log(this.molePosition, this.moleState);
 
         this.timeController = setTimeout(this.moleController, randomNum(5000));
     };
