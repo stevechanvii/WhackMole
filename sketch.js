@@ -38,6 +38,7 @@ let cameraCanvas = function (sketch) {
         sketch.image(video, 0, 0);
 
         if (pose) {
+            console.log(pose);
             let eyeR = pose.rightEye;
             let eyeL = pose.leftEye;
             let d = sketch.dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
@@ -175,17 +176,18 @@ var moleCanvas = function (sketch) {
     // Start Game
     sketch.draw = function () {
         //for canvas 2
+        sketch.imageMode(sketch.CORNER);
         sketch.image(imgBackground, 0, 0, canvasWidth, canvasHeight);
 
         // Score
         sketch.textSize(25);
         // sketch.textAlign(sketch.CENTER, sketch.LIFT);
         sketch.textFont('Chelsea Market');
-        sketch.text('Score: ' + score, 20, 32);
+        sketch.text('Score: ' + score, 70, 32);
 
         // Timer
         // sketch.textAlign(sketch.RIGHT);
-        sketch.text('Time: ' + timer, canvasWidth - 115, 32);
+        sketch.text('Time: ' + timer, canvasWidth - 80, 32);
 
         if (isPlaying) {
             moles.map((mole) => mole.draw());
