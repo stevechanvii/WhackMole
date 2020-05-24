@@ -9,6 +9,9 @@ let pose;
 let skeleton;
 let pg;
 
+let rightAngle = 0;
+let leftAngle = 0;
+
 let score = 0;
 
 // Video canvas
@@ -35,10 +38,12 @@ let cameraCanvas = function (sketch) {
     }
 
     sketch.draw = function () {
+        // flip x-axis backwards
+        sketch.translate(video.width, 0);
+        sketch.scale(-1.0, 1.0);
         sketch.image(video, 0, 0);
 
         if (pose) {
-            console.log(pose);
             let eyeR = pose.rightEye;
             let eyeL = pose.leftEye;
             let d = sketch.dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
@@ -62,6 +67,22 @@ let cameraCanvas = function (sketch) {
                 sketch.stroke(255);
                 sketch.line(a.position.x, a.position.y, b.position.x, b.position.y);
             }
+
+            // Whack moles
+            rightAngle = getAngle(
+                [pose.leftShoulder.x, pose.leftShoulder.y],
+                [pose.rightShoulder.x, pose.rightShoulder.y],
+                [pose.rightWrist.x, pose.rightWrist.y]
+            );
+
+            leftAngle = getAngle(
+                [pose.rightShoulder.x, pose.rightShoulder.y],
+                [pose.leftShoulder.x, pose.leftShoulder.y],
+                [pose.leftWrist.x, pose.leftWrist.y]
+            );
+
+            sketch.textSize(30);
+            sketch.text(rightAngle, 50, 50);
         }
     };
 };
@@ -73,7 +94,6 @@ var moleCanvas = function (sketch) {
     let spritesheet;
     let spritedata;
     let iconPlay;
-    let iconPlayHover;
     const animation = {};
     const canvasWidth = 400;
     const canvasHeight = 600;
@@ -82,7 +102,6 @@ var moleCanvas = function (sketch) {
     let timer = 30;
 
     // Game state
-    let isStart = false;
     let isPlaying = false;
 
     sketch.preload = function () {
@@ -191,6 +210,28 @@ var moleCanvas = function (sketch) {
 
         if (isPlaying) {
             moles.map((mole) => mole.draw());
+
+            // check left pose click
+            if (leftAngle >= 30 && leftAngle < 70) {
+                moles[0].clicked();
+            }
+            if ((leftAngle >= 0 && leftAngle < 20) || (leftAngle >= 340 && leftAngle < 360)) {
+                moles[3].clicked();
+            }
+            if (leftAngle >= 270 && leftAngle < 330) {
+                moles[6].clicked();
+            }
+
+            // check right pose click
+            if (rightAngle >= 30 && rightAngle < 70) {
+                moles[2].clicked();
+            }
+            if ((rightAngle >= 0 && rightAngle < 20) || (rightAngle >= 340 && rightAngle < 360)) {
+                moles[5].clicked();
+            }
+            if (rightAngle >= 270 && rightAngle < 330) {
+                moles[8].clicked();
+            }
         } else {
             // Play game icon
             sketch.imageMode(sketch.CENTER);
@@ -242,6 +283,6 @@ var moleCanvas = function (sketch) {
 };
 
 // create a new instance of p5 and pass in the function for sketch 1
-// let cameraWindow = new p5(cameraCanvas);
+let cameraWindow = new p5(cameraCanvas);
 // create the second instance of p5 and pass in the function for sketch 2
 moleWindow = new p5(moleCanvas);
