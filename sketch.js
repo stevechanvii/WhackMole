@@ -81,8 +81,9 @@ let cameraCanvas = function (sketch) {
                 [pose.leftWrist.x, pose.leftWrist.y]
             );
 
-            sketch.textSize(30);
-            sketch.text(rightAngle, 50, 50);
+            // sketch.textSize(30);
+            // sketch.text(rightAngle, 50, 50);
+            // sketch.text(leftAngle, 50, 80);
         }
     };
 };
@@ -95,8 +96,8 @@ var moleCanvas = function (sketch) {
     let spritedata;
     let iconPlay;
     const animation = {};
-    const canvasWidth = 400;
-    const canvasHeight = 600;
+    const canvasWidth = 500;
+    const canvasHeight = 700;
 
     // Timer variables
     let timer = 30;
@@ -150,8 +151,9 @@ var moleCanvas = function (sketch) {
     };
 
     // Initiallize moles
-    const moles = [];
+    let moles = [];
     const initMoles = () => {
+        moles = [];
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
                 const mole = new Mole(sketch, animation, [i, j]);
@@ -212,13 +214,13 @@ var moleCanvas = function (sketch) {
             moles.map((mole) => mole.draw());
 
             // check left pose click
-            if (leftAngle >= 30 && leftAngle < 70) {
+            if (leftAngle >= 330 && leftAngle < 360) {
                 moles[0].clicked();
             }
-            if ((leftAngle >= 0 && leftAngle < 20) || (leftAngle >= 340 && leftAngle < 360)) {
+            if ((leftAngle >= 0 && leftAngle < 40) || (leftAngle >= 300 && leftAngle < 330)) {
                 moles[3].clicked();
             }
-            if (leftAngle >= 270 && leftAngle < 330) {
+            if (leftAngle >= 40 && leftAngle < 80) {
                 moles[6].clicked();
             }
 
@@ -231,6 +233,19 @@ var moleCanvas = function (sketch) {
             }
             if (rightAngle >= 270 && rightAngle < 330) {
                 moles[8].clicked();
+            }
+
+            // check middle pose click
+            if (rightAngle >= 80 && rightAngle < 140 && leftAngle >= 220 && leftAngle < 280) {
+                moles[1].clicked();
+            }
+
+            if (rightAngle >= 220 && rightAngle < 290 && leftAngle >= 100 && leftAngle < 160) {
+                moles[4].clicked();
+            }
+
+            if (rightAngle >= 250 && rightAngle < 270 && leftAngle >= 90 && leftAngle < 110) {
+                moles[7].clicked();
             }
         } else {
             // Play game icon

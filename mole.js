@@ -3,8 +3,8 @@ class Mole {
         this.sketch = sketch;
         this.animation = animation;
         this.molePosition = molePosition;
-        this.canvasWidth = 400;
-        this.canvasHeight = 600;
+        this.canvasWidth = 500;
+        this.canvasHeight = 700;
         this.moleWidth = 190 * 0.666;
         this.moleHeight = 144 * 0.666;
         this.moleState = 'underground';

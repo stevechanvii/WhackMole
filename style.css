@@ -3,9 +3,14 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Shadows Into Light', cursive;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 canvas {
-    display: inline-block;
+    margin: 20px;
 }
 #defaultCanvas0 {
+    width: 80%;
 }
