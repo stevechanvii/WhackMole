@@ -1,0 +1,24 @@
+{
+    "name": "whackamole",
+    "version": "1.0.0",
+    "description": "A whack a mole game developed by P5.js and Tensorflow PoseNet",
+    "main": "index.html",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "babel src -d lib"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/stevechanvii/WhackMole.git"
+    },
+    "author": "SteveChan",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/stevechanvii/WhackMole/issues"
+    },
+    "homepage": "https://github.com/stevechanvii/WhackMole#readme",
+    "devDependencies": {
+        "@babel/cli": "^7.8.4",
+        "@babel/core": "^7.9.6"
+    }
+}

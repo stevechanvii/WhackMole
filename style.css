@@ -9,7 +9,7 @@ body {
     align-items: center;
 }
 canvas {
-    margin: 20px;
+    margin: 10px;
 }
 #defaultCanvas0 {
     width: 80%;
