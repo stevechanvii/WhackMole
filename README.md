@@ -5,6 +5,7 @@ A whack a mole game developed by JavaScript (P5.js) and Tensorflow PoseNet.
 ## Getting Started
 
 [Live Demo](https://stevechanvii.github.io/WhackMole/)
+
 ![game gif](./assets/game.gif)
 
 ## How to play
