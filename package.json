@@ -19,6 +19,8 @@
     "homepage": "https://github.com/stevechanvii/WhackMole#readme",
     "devDependencies": {
         "@babel/cli": "^7.8.4",
-        "@babel/core": "^7.9.6"
+        "@babel/core": "^7.9.6",
+        "@babel/plugin-proposal-class-properties": "^7.8.3",
+        "babel-plugin-transform-class-properties": "^6.24.1"
     }
 }
