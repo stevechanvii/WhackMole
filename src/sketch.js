@@ -84,6 +84,7 @@ let cameraCanvas = function (sketch) {
             // sketch.textSize(30);
             // sketch.text(rightAngle, 50, 50);
             // sketch.text(leftAngle, 50, 80);
+            sketch.frameRate(15);
         }
     };
 };
