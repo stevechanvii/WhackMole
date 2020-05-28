@@ -17,7 +17,8 @@ let score = 0;
 // Video canvas
 let cameraCanvas = function (sketch) {
     sketch.setup = function () {
-        sketch.createCanvas(640, 480);
+        // sketch.createCanvas(640, 480);
+        sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
 
         video = sketch.createCapture(sketch.VIDEO);
         video.hide();
@@ -301,4 +302,4 @@ var moleCanvas = function (sketch) {
 // create a new instance of p5 and pass in the function for sketch 1
 let cameraWindow = new p5(cameraCanvas);
 // create the second instance of p5 and pass in the function for sketch 2
-moleWindow = new p5(moleCanvas);
+// moleWindow = new p5(moleCanvas);
