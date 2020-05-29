@@ -11,7 +11,7 @@ A whack a mole game developed by JavaScript (P5.js) and Tensorflow PoseNet.
 ## How to play
 
 -   Use pose estimation (Arms up and down to hit 1st or 3rd columns, clap your hands to hit the middle column)
--   Mouse click moles
+-   Mouse click (If you are using mobile devices, pose estimation will be disabled)
 
 ## Deployment
 
