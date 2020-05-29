@@ -113,7 +113,6 @@ var moleCanvas = function (sketch) {
         spritesheet = sketch.loadImage('assets/sprites.png');
         spritedata = sketch.loadJSON('assets/mole.json');
         iconPlay = sketch.loadImage('assets/icon_play.png');
-        iconRestart = sketch.loadImage('assets/icon_restart.png');
     };
 
     function convertSeconds(s) {
@@ -217,38 +216,43 @@ var moleCanvas = function (sketch) {
             moles.map((mole) => mole.draw());
 
             // check left pose click
-            if (leftAngle >= 330 && leftAngle < 360) {
-                moles[0].clicked();
-            }
-            if ((leftAngle >= 0 && leftAngle < 40) || (leftAngle >= 300 && leftAngle < 330)) {
-                moles[3].clicked();
-            }
-            if (leftAngle >= 40 && leftAngle < 80) {
-                moles[6].clicked();
-            }
+            if (canvasWidth > 700) {
+                if (leftAngle >= 330 && leftAngle < 360) {
+                    moles[0].clicked();
+                }
+                if ((leftAngle >= 0 && leftAngle < 40) || (leftAngle >= 300 && leftAngle < 330)) {
+                    moles[3].clicked();
+                }
+                if (leftAngle >= 40 && leftAngle < 80) {
+                    moles[6].clicked();
+                }
 
-            // check right pose click
-            if (rightAngle >= 30 && rightAngle < 70) {
-                moles[2].clicked();
-            }
-            if ((rightAngle >= 0 && rightAngle < 20) || (rightAngle >= 340 && rightAngle < 360)) {
-                moles[5].clicked();
-            }
-            if (rightAngle >= 270 && rightAngle < 330) {
-                moles[8].clicked();
-            }
+                // check right pose click
+                if (rightAngle >= 30 && rightAngle < 70) {
+                    moles[2].clicked();
+                }
+                if (
+                    (rightAngle >= 0 && rightAngle < 20) ||
+                    (rightAngle >= 340 && rightAngle < 360)
+                ) {
+                    moles[5].clicked();
+                }
+                if (rightAngle >= 270 && rightAngle < 330) {
+                    moles[8].clicked();
+                }
 
-            // check middle pose click
-            if (rightAngle >= 80 && rightAngle < 140 && leftAngle >= 220 && leftAngle < 280) {
-                moles[1].clicked();
-            }
+                // check middle pose click
+                if (rightAngle >= 80 && rightAngle < 140 && leftAngle >= 220 && leftAngle < 280) {
+                    moles[1].clicked();
+                }
 
-            if (rightAngle >= 220 && rightAngle < 290 && leftAngle >= 100 && leftAngle < 160) {
-                moles[4].clicked();
-            }
+                if (rightAngle >= 220 && rightAngle < 290 && leftAngle >= 100 && leftAngle < 160) {
+                    moles[4].clicked();
+                }
 
-            if (rightAngle >= 250 && rightAngle < 270 && leftAngle >= 90 && leftAngle < 110) {
-                moles[7].clicked();
+                if (rightAngle >= 250 && rightAngle < 270 && leftAngle >= 90 && leftAngle < 110) {
+                    moles[7].clicked();
+                }
             }
         } else {
             // Play game icon

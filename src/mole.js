@@ -158,6 +158,7 @@ class Mole {
                 }
                 break;
             default:
+                console.log('Nothing');
         }
     }
 }
