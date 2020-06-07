@@ -5,6 +5,13 @@
             name="viewport"
             content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width"
         />
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script> -->
         <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
@@ -19,19 +26,57 @@
         <link rel="stylesheet" type="text/css" href="style.css" />
         <meta charset="utf-8" />
     </head>
-    <body>
+    <body class="container">
+        <div class="btn-play">
+            <button
+                type="button"
+                class="btn btn-info btn-lg"
+                data-toggle="modal"
+                data-target="#myModal"
+            >
+                How To Play?
+            </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade modal-play" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">How to play?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Please allow the browser to open camera, this will not record any
+                            privacy.
+                        </p>
+                        <p>
+                            Keep your computer at a distance (for me 1.5 meters) that can see your
+                            upper body and skeleton on the screen. And then start the game.
+                        </p>
+                        <ul>
+                            <li>
+                                Arms up and down to hit 1st or 3rd columns
+                            </li>
+                            <li>
+                                Hands clap up and down to hit the middle column
+                            </li>
+                        </ul>
+                        <p>
+                            You can also use mouse click (If you are using mobile devices, pose
+                            estimation will be disabled)
+                        </p>
+                        <p>We recommend Google Chrome to play this game</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script src="./lib/sketch.js"></script>
     </body>
-    <!-- <footer>
-        <div class="footer">
-            <p>
-                Developed by <a href="https://github.com/stevechanvii/WhackMole">Steve Chan</a> |
-                Game assets found in
-                <a
-                    href="https://github.com/lepunk/react-native-videos/tree/whack-a-mole/WhackAMole/assets/img"
-                    >lepunk</a
-                >'s repo
-            </p>
-        </div>
-    </footer> -->
 </html>

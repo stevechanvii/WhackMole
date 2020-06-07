@@ -7,7 +7,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    position: relative;
 }
+
+.btn-play {
+    font-family: 'Open Sans', sans-serif;
+    position: absolute;
+    left: 200px;
+    top: 50px;
+}
+
+.modal-play {
+    font-family: 'Open Sans', sans-serif;
+}
+
 canvas {
     margin: 10px;
 }
@@ -25,5 +39,9 @@ canvas {
     }
     canvas {
         margin: 0;
+    }
+
+    .btn-play {
+        display: none;
     }
 }
