@@ -96,9 +96,16 @@ var moleCanvas = function (sketch) {
     let spritesheet;
     let spritedata;
     let iconPlay;
+    let canvasWidth;
+    let isDesktop = false;
     const animation = {};
     // const canvasWidth = 500;
-    const canvasWidth = sketch.displayWidth < 700 ? sketch.displayWidth : 500;
+    if (sketch.displayWidth < 700) {
+        canvasWidth = sketch.displayWidth;
+    } else {
+        canvasWidth = 500;
+        isDesktop = true;
+    }
     // const canvasHeight = 700;
     const canvasHeight = sketch.displayWidth < 700 ? sketch.displayHeight - 80 : 700;
 
@@ -216,7 +223,7 @@ var moleCanvas = function (sketch) {
             moles.map((mole) => mole.draw());
 
             // check left pose click
-            if (canvasWidth > 700) {
+            if (isDesktop) {
                 if (leftAngle >= 330 && leftAngle < 360) {
                     moles[0].clicked();
                 }

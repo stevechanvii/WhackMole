@@ -21,6 +21,12 @@ You need to install a local server environment before runing this project, such 
 live-server
 ```
 
+Export with Babel
+
+```
+npx babel src --out-dir lib --ignore "src/ml5.min.js","src/p5.min.js"
+```
+
 If you are hosting on a real server, https is required since it needs live video stream.
 
 ## Built With
